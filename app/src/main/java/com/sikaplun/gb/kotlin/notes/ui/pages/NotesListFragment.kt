@@ -1,16 +1,17 @@
-package com.sikaplun.gb.kotlin.notes.ui.fragments
+package com.sikaplun.gb.kotlin.notes.ui.pages
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sikaplun.gb.kotlin.notes.databinding.FragmentNotesListBinding
-import com.sikaplun.gb.kotlin.notes.domain.models.AppModel
-import com.sikaplun.gb.kotlin.notes.domain.repository.NoteEntity
+import com.sikaplun.gb.kotlin.notes.domain.repo.NotesListImpl
+import com.sikaplun.gb.kotlin.notes.domain.repository.Noteslist
+import com.sikaplun.gb.kotlin.notes.domain.model.NoteEntity
 import com.sikaplun.gb.kotlin.notes.ui.adapter.NoteAdapter
 
 class NotesListFragment : Fragment(), NoteAdapter.InteractionListener {
@@ -19,7 +20,7 @@ class NotesListFragment : Fragment(), NoteAdapter.InteractionListener {
     private var id: String? = null
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: NoteAdapter
-    private lateinit var notesList: AppModel
+    private var notesList: Noteslist = NotesListImpl.getNotesList()
 
     private var _binding: FragmentNotesListBinding? = null
     private val binding get() = _binding!!
@@ -42,7 +43,6 @@ class NotesListFragment : Fragment(), NoteAdapter.InteractionListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        notesList = requireActivity().applicationContext as AppModel
         adapter = NoteAdapter(notesList.getNotes(), this)
         initializationAddNewNoteButton()
         initializationRecyclerView(view)

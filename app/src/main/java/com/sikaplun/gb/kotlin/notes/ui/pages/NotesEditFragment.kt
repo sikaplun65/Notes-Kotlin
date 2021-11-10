@@ -1,30 +1,33 @@
-package com.sikaplun.gb.kotlin.notes.ui.fragments
+package com.sikaplun.gb.kotlin.notes.ui.pages
 
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import com.sikaplun.gb.kotlin.notes.R
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.sikaplun.gb.kotlin.notes.databinding.FragmentNotesEditBinding
-import com.sikaplun.gb.kotlin.notes.domain.models.AppModel
-import com.sikaplun.gb.kotlin.notes.domain.repository.NoteEntity
+import com.sikaplun.gb.kotlin.notes.domain.repo.NotesListImpl
+import com.sikaplun.gb.kotlin.notes.domain.repository.Noteslist
+import com.sikaplun.gb.kotlin.notes.domain.model.NoteEntity
 
 class NotesEditFragment : Fragment() {
     private lateinit var titleEditText: EditText
     private lateinit var detailEditText: EditText
     private lateinit var saveButton: Button
-    private lateinit var notesList: AppModel
-    private var noteId: String? = null
-    private lateinit var tempTitle: String
-    private lateinit var tempDetail: String
+    private var notesList:Noteslist = NotesListImpl.getNotesList()
+    private var noteId: String = ""
+    private var tempTitle: String = ""
+    private var tempDetail: String = ""
 
     private var _binding: FragmentNotesEditBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var notesEditFragmentViewModel: NotesEditFragmentViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,22 +36,26 @@ class NotesEditFragment : Fragment() {
     ): View {
         _binding = FragmentNotesEditBinding.inflate(inflater, container, false)
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        tempTitle = ""
-        tempDetail = ""
         titleEditText = binding.titleEditText
         detailEditText = binding.detailEditText
         saveButton = binding.saveButton
-        notesList = requireActivity().applicationContext as AppModel
 
         val args = this.arguments
         if (args != null && args.containsKey(ID_KEY)) {
-            noteId = args.getString(ID_KEY)
+            noteId = args.getString(ID_KEY).toString()
             notesList.getNote(noteId)?.let { fillTextTitleAndTextDetail(it) }
         }
+
+        notesEditFragmentViewModel =
+            ViewModelProvider(this).get(
+                NotesEditFragmentViewModel::class.java
+            )
+
         setupListeners()
     }
 
@@ -60,7 +67,6 @@ class NotesEditFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        setHints()
 
         titleEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
@@ -78,58 +84,19 @@ class NotesEditFragment : Fragment() {
         })
 
         saveButton.setOnClickListener { v: View? ->
-            var isModifiedDate = true
-
-            if (noteId == null) {
-                createNote()
-                isModifiedDate = false
-            }
-
-            if(isModifiedDate) {
-                if (!tempTitle.equals(notesList.getNote(noteId)?.title) || !tempDetail.equals(
-                        notesList.getNote(noteId)?.detail)) {
-                    notesList.getNote(noteId)?.setModifiedDate()
-                }
-            }
-
-            if (tempTitle.isNotEmpty()) {
-                notesList.getNote(noteId)?.title = tempTitle
-            }
-            if (tempDetail.isNotEmpty()) {
-                notesList.getNote(noteId)?.detail = tempDetail
-            }
-
-            if (titleEditText.length().equals(0) && !detailEditText.length().equals(0)) {
-                notesList.getNote(noteId)?.title =
-                    detailEditText.text.toString().substring(0, 10)
-            } else if (isNoteBlank) {
-                notesList.removeNote(notesList.getNote(noteId))
-            }
-
+            notesEditFragmentViewModel.onClickSaveButton(
+                titleEditText.text.toString(),
+                detailEditText.text.toString(),
+                tempTitle,
+                tempDetail,
+                noteId
+            )
             requireActivity().onBackPressed()
         }
     }
 
-    private fun createNote() {
-        val newNote = NoteEntity()
-        notesList.addNote(newNote)
-        noteId = newNote.id
-    }
-
-    val isNoteBlank: Boolean
-        get() = titleEditText.text.isEmpty() && detailEditText.text.isEmpty()
-
-    fun setHints() {
-        if (titleEditText.text.isEmpty()) {
-            titleEditText.hint = "Заголовок"
-        }
-        if (detailEditText.text.isEmpty()) {
-            detailEditText.hint = "текст заметки"
-        }
-    }
-
     companion object {
-        private val ID_KEY = "ID_KEY"
+        val ID_KEY = "ID_KEY"
         fun create(id: String?): NotesEditFragment {
             val fragment = NotesEditFragment()
             val bundle = Bundle().apply { putString(ID_KEY, id) }
@@ -142,3 +109,4 @@ class NotesEditFragment : Fragment() {
         }
     }
 }
+

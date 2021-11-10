@@ -1,12 +1,12 @@
-package com.sikaplun.gb.kotlin.notes.ui
+package com.sikaplun.gb.kotlin.notes.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.sikaplun.gb.kotlin.notes.R
 import com.sikaplun.gb.kotlin.notes.databinding.ActivityMainBinding
-import com.sikaplun.gb.kotlin.notes.ui.fragments.NotesEditFragment.Companion.create
-import com.sikaplun.gb.kotlin.notes.ui.fragments.NotesListFragment
+import com.sikaplun.gb.kotlin.notes.ui.pages.NotesEditFragment.Companion.create
+import com.sikaplun.gb.kotlin.notes.ui.pages.NotesListFragment
 
 
 class MainActivity : AppCompatActivity(), NotesListFragment.Controller {

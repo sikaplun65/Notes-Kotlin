@@ -1,6 +1,10 @@
-package com.sikaplun.gb.kotlin.notes.domain.repository
+package com.sikaplun.gb.kotlin.notes.domain.repo
 
-object NotesListImpl:Noteslist {
+import com.sikaplun.gb.kotlin.notes.domain.model.NoteEntity
+import com.sikaplun.gb.kotlin.notes.domain.repository.Noteslist
+
+object NotesListImpl: Noteslist {
+
     private val notesList: MutableList<NoteEntity> = mutableListOf()
 
     init { filListOfNotesWithTestValues() }

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.sikaplun.gb.kotlin.notes.R
-import com.sikaplun.gb.kotlin.notes.domain.repository.NoteEntity
+import com.sikaplun.gb.kotlin.notes.domain.model.NoteEntity
 import java.text.SimpleDateFormat
 import java.util.*
 

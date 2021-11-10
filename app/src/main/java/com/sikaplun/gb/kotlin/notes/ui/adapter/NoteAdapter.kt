@@ -3,7 +3,7 @@ package com.sikaplun.gb.kotlin.notes.ui.adapter
 import android.annotation.SuppressLint
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.sikaplun.gb.kotlin.notes.domain.repository.NoteEntity
+import com.sikaplun.gb.kotlin.notes.domain.model.NoteEntity
 
 class NoteAdapter(
     private var list: List<NoteEntity>,

@@ -1,4 +1,4 @@
-package com.sikaplun.gb.kotlin.notes.domain.repository
+package com.sikaplun.gb.kotlin.notes.domain.model
 
 import java.util.*
 
