@@ -39,5 +39,6 @@ class NoteAdapter(
 
     interface InteractionListener {
         fun OnItemShortClick(item: NoteEntity?)
+        fun OnItemLongClick(item: NoteEntity?): Boolean
     }
 }

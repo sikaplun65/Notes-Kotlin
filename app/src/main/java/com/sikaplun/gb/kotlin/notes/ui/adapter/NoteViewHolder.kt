@@ -44,6 +44,7 @@ class NoteViewHolder(parent: ViewGroup, clickListener: NoteAdapter.InteractionLi
 
     init {
         itemView.setOnClickListener { v: View? -> clickListener.OnItemShortClick(note) }
+        itemView.setOnLongClickListener { v: View? -> clickListener.OnItemLongClick(note) }
     }
 
 }

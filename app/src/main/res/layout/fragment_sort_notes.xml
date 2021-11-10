@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.pages.SortNotesFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/text_sort_notes"
+            android:textColor="@color/black"
+            android:textSize="@dimen/twenty_eight_sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/sort_from_old_to_new_notes_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="16dp"
+            android:backgroundTint="#83E9FB"
+            android:fontFamily="sans-serif-black"
+            android:text="От старых к новым"
+            android:textColor="@color/black" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/sort_from_new_to_old_notes_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="16dp"
+            android:backgroundTint="#83E9FB"
+            android:fontFamily="sans-serif-black"
+            android:text="От новых к старым"
+            android:textColor="@color/black" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/sort1_by_modified_date_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="16dp"
+            android:backgroundTint="#83E9FB"
+            android:fontFamily="sans-serif-black"
+            android:text="По дате изменения"
+            android:textColor="@color/black" />
+
+    </LinearLayout>
+
+</FrameLayout>
