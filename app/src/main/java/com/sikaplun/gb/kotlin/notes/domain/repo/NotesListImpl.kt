@@ -35,13 +35,14 @@ object NotesListImpl: Noteslist {
 
     private fun filListOfNotesWithTestValues() {
         val numberOfNotes = 6
+
         for (i in 0 until numberOfNotes) {
             try {
                 // задержка времени при создании для проверки сортировок
                 Thread.sleep(10)
                 notesList.add(
                     NoteEntity(
-                        "Заметка " + (i + 1), "Сайт рыбатекст поможет дизайнеру, верстальщику," +
+                        "Заметка " + (i + 1), "Сайт https://fishtext.ru поможет дизайнеру, верстальщику," +
                                 " вебмастеру сгенерировать несколько абзацев более менее осмысленного текста"
                     )
                 )

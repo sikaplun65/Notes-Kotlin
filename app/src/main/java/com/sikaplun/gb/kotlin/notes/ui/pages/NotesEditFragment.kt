@@ -11,15 +11,15 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.sikaplun.gb.kotlin.notes.databinding.FragmentNotesEditBinding
+import com.sikaplun.gb.kotlin.notes.domain.model.NoteEntity
 import com.sikaplun.gb.kotlin.notes.domain.repo.NotesListImpl
 import com.sikaplun.gb.kotlin.notes.domain.repository.Noteslist
-import com.sikaplun.gb.kotlin.notes.domain.model.NoteEntity
 
 class NotesEditFragment : Fragment() {
     private lateinit var titleEditText: EditText
     private lateinit var detailEditText: EditText
     private lateinit var saveButton: Button
-    private var notesList:Noteslist = NotesListImpl.getNotesList()
+    private var notesList: Noteslist = NotesListImpl.getNotesList()
     private var noteId: String = ""
     private var tempTitle: String = ""
     private var tempDetail: String = ""
@@ -57,6 +57,8 @@ class NotesEditFragment : Fragment() {
             )
 
         setupListeners()
+
+        view.setOnLongClickListener { true }
     }
 
     private fun fillTextTitleAndTextDetail(note: NoteEntity) {
@@ -83,7 +85,7 @@ class NotesEditFragment : Fragment() {
             }
         })
 
-        saveButton.setOnClickListener { v: View? ->
+        saveButton.setOnClickListener {
             notesEditFragmentViewModel.onClickSaveButton(
                 titleEditText.text.toString(),
                 detailEditText.text.toString(),
